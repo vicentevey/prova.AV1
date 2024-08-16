@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio Digital Bom Sabor</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #facc00;
+      margin: 0;
+      padding: 0;
+      color: #000000;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #000000;
+    }
+
+    h2 {
+      color: #000000;
+      margin-bottom: 10px;
+    }
+
+    .categoria {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 800px;
+      overflow: hidden;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .input-checkbox {
+      margin-right: 10px;
+    }
+
+    .descricao {
+      margin-left: 10px;
+      flex: 1;
+    }
+
+    .preco {
+      margin-left: auto;
+      font-weight: bold;
+    }
+
+    #carrinho {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 800px;
+    }
+
+    .carrinho-item {
+      margin-bottom: 10px;
+    }
+
+    .carrinho-total {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    button {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #f54ade;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #151718;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    form {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 22px);
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+
+    #creditCardInfo, #pixInfo, #codInfo {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Bem-vindo ao nosso Cardápio Digital Bom Sabor!</h1>
+
+<div class="categoria">
+  <h2>Hambúrgueres</h2>
+  <div class="item">
+    <input type="checkbox" id="hamburguer1" class="input-checkbox" name="hamburguer1" onclick="adicionarAoCarrinho('Hambúrguer Clássico', 14.99)">
+    <label for="hamburguer1" class="descricao">Hambúrguer Clássico - Pão, carne, queijo, alface, tomate e molho especial.</label>
+    <span class="preco">R$14.99</span>
+    <img src="oie_transparent.png" alt="foto do Hambúrguer Clássico">
+  </div>
+</div>
+
+
+
+<div class="categoria">
+  <h2>Saladas</h2>
+  <div class="item">
+    <input type="checkbox" id="salada1" class="input-checkbox" name="salada1" onclick="adicionarAoCarrinho('Salada', 15.99)">
+    <label for="salada1" class="descricao">Salada - tomate, alface, cebola, couve, rúcula, maçã fatiada, hortelã e coentro a gosto e molho especial.</label>
+    <span class="preco">R$15.99</span>
+    <img src="salada.png.png" alt="foto da Salada">
+  </div>
+</div>
+
+<div class="categoria">
+  <h2>Bebidas</h2>
+  <div class="item">
+    <input type="checkbox" id="bebidas1" class="input-checkbox" name="bebidas1" onclick="adicionarAoCarrinho('Bebidas', 9.99)">
+    <label for="bebidas1" class="descricao">Bebidas - Refrigerantes, sucos ou água.</label>
+    <span class="preco">R$9.99</span>
+    <img src="refri.png" alt="foto do Refrigerante">
+  </div>
+</div>
+
+<div class="categoria">
+  <h2>Coxinha</h2>
+  <div class="item">
+    <input type="checkbox" id="coxinha1" class="input-checkbox" name="coxinha1" onclick="adicionarAoCarrinho('Coxinha', 6.99)">
+    <label for="coxinha1" class="descricao">Coxinha - frango, carne ou camarão.</label>
+    <span class="preco">R$6.99</span>
+    <img src="coxinha.png" alt="foto da Coxinha">
+  </div>
+</div>
+
+ 
+<div id="carrinho">
+  <h2>Seu Carrinho</h2>
+</div>
+
+<button onclick="finalizarPedido()">Finalizar Pedido</button>
+
+<h2>Selecione a Forma de Pagamento</h2>
+<form id="paymentForm">
+  <label>
+    <input type="radio" name="paymentMethod" value="creditCard" required> Cartão de Crédito
+  </label>
+  <label>
+    <input type="radio" name="paymentMethod" value="pix"> PIX
+  </label>
+  <label>
+    <input type="radio" name="paymentMethod" value="cod"> Pagamento na Entrega
+  </label>
+
+  <div id="creditCardInfo" style="display: none;">
+    <h3>Informações do Cartão de Crédito</h3>
+    <label for="cardNumber">Número do Cartão:</label>
+    <input type="text" id="cardNumber" name="cardNumber" required>
+    
+    <label for="expiryDate">Data de Validade:</label>
+    <input type="text" id="expiryDate" name="expiryDate" required>
+    
+    <label for="cvv">CVV:</label>
+    <input type="text" id="cvv" name="cvv" required>
+  </div>
+
+  <div id="pixInfo" style="display: none;">
+    <h3>Informações do PIX</h3>
+    <p>Use a chave PIX: <strong>vicentevey@gmail.com</strong></p>
+  </div>
+
+  <div id="codInfo" style="display: none;">
+    <h3>Pagamento na Entrega</h3>
+    <p>O pagamento será realizado na entrega do produto.</p>
+  </div>
+
+  <button type="submit">Confirmar Pagamento</button>
+</form>
+
+<script>
+  let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+  function adicionarAoCarrinho(nome, preco) {
+    const item = carrinho.find(item => item.nome === nome);
+    if (item) {
+      item.quantidade++;
+    } else {
+      carrinho.push({ nome, preco, quantidade: 1 });
+    }
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    atualizarCarrinho();
+  }
+
+  function atualizarCarrinho() {
+    const carrinhoElemento = document.getElementById('carrinho');
+    carrinhoElemento.innerHTML = '<h2>Seu Carrinho</h2>';
+    let total = 0;
+    
+    carrinho.forEach(item => {
+      total += item.preco * item.quantidade;
+      carrinhoElemento.innerHTML += `<div class="carrinho-item">${item.nome} x ${item.quantidade} - R$${item.preco.toFixed(2)}</div>`;
+    });
+    
+    carrinhoElemento.innerHTML += `<div class="carrinho-total"><strong>Total: R$${total.toFixed(2)}</strong></div>`;
+  }
+
+  function finalizarPedido() {
+    if (carrinho.length === 0) {
+      alert('Seu carrinho está vazio.');
+      return;
+    }
+    
+    const nome = prompt('Por favor, insira seu nome completo:');
+    const endereco = prompt('Por favor, insira seu endereço para entrega:');
+    
+    if (nome && endereco) {
+      alert(`Pedido confirmado! Obrigado, ${nome}. Enviaremos para o endereço: ${endereco}.`);
+      carrinho = []; // Limpa o carrinho após a finalização
+      localStorage.removeItem('carrinho'); // Remove o carrinho do localStorage
+      atualizarCarrinho(); // Atualiza o carrinho na página
+    } else {
+      alert('Por favor, preencha todos os campos.');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', atualizarCarrinho);
+
+  const paymentForm = document.getElementById('paymentForm');
+  const creditCardInfo = document.getElementById('creditCardInfo');
+  const pixInfo = document.getElementById('pixInfo');
+  const codInfo = document.getElementById('codInfo');
+
+  paymentForm.addEventListener('change', function(event) {
+    const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    creditCardInfo.style.display = 'none';
+    pixInfo.style.display = 'none';
+    codInfo.style.display = 'none';
+
+    if (selectedMethod === 'creditCard') {
+      creditCardInfo.style.display = 'block';
+    } else if (selectedMethod === 'pix') {
+      pixInfo.style.display = 'block';
+    } else if (selectedMethod === 'cod') {
+      codInfo.style.display = 'block';
+    }
+  });
+
+  paymentForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    alert('Pagamento confirmado usando: ' + selectedMethod);
+  });
+</script>
+
+</body>
+</html>
